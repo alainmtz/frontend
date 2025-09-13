@@ -1,5 +1,10 @@
 export async function getProducts() {
-  const res = await fetch('/api/store/products');
+  const token = localStorage.getItem('token');
+  const res = await fetch('/api/store/products', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
   if (!res.ok) throw new Error('Error al obtener items');
   return res.json();
 }

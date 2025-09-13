@@ -1,3 +1,5 @@
+import RolesManagement from './pages/RolesManagement';
+              <Route path="/roles-management" element={<ProtectedRoute><RolesManagement /></ProtectedRoute>} />
 import './index.css';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
@@ -16,6 +18,11 @@ import Consumibles from './pages/Consumibles';
 import Store from './pages/Store';
 import Purchases from './pages/Purchases';
 
+import FinancialReports from './pages/FinancialReports';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ProtectedRoute from './components/ProtectedRoute';
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -31,18 +38,21 @@ function App() {
           <Sidebar />
           <Box component="main" sx={{ flex: 1, bgcolor: 'grey.100', minHeight: '100vh', pt: 8, pl: { md: 32 } }}>
             <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/items" element={<Items />} />
-              <Route path="/suppliers" element={<Suppliers />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/activity-log" element={<ActivityLog />} />
-              <Route path="/stock-history" element={<StockHistory />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/consumibles" element={<Consumibles />} />
-              <Route path="/store" element={<Store />} />
-              <Route path="/purchases" element={<Purchases />} />
-              <Route path="*" element={<NotFound />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/items" element={<ProtectedRoute><Items /></ProtectedRoute>} />
+                <Route path="/suppliers" element={<ProtectedRoute><Suppliers /></ProtectedRoute>} />
+                <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
+                <Route path="/activity-log" element={<ProtectedRoute><ActivityLog /></ProtectedRoute>} />
+                <Route path="/stock-history" element={<ProtectedRoute><StockHistory /></ProtectedRoute>} />
+                <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+                <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
+                <Route path="/consumibles" element={<ProtectedRoute><Consumibles /></ProtectedRoute>} />
+                <Route path="/store" element={<ProtectedRoute><Store /></ProtectedRoute>} />
+                <Route path="/purchases" element={<ProtectedRoute><Purchases /></ProtectedRoute>} />
+                <Route path="/financial-reports" element={<ProtectedRoute><FinancialReports /></ProtectedRoute>} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
           </Box>
         </Box>

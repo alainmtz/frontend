@@ -15,6 +15,14 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </Grid>
+          <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 4' } }}>
+            <Card sx={{ boxShadow: 2, cursor: 'pointer' }} onClick={() => window.location.href = '/financial-reports'}>
+              <CardContent>
+                <Typography variant="h6" fontWeight={600}>Reportes Financieros</Typography>
+                <Typography>Visualiza reportes, gráficos y datos agregados.</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
         <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 4' } }}>
           <Card sx={{ boxShadow: 2 }}>
             <CardContent>

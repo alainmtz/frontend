@@ -15,6 +15,7 @@ export default function Store() {
   const [suppliers, setSuppliers] = useState([]);
   const [toast, setToast] = useState(null);
 
+  const [selectedSupplier, setSelectedSupplier] = useState('');
   useEffect(() => {
     getProducts()
       .then(setProducts)
@@ -22,14 +23,25 @@ export default function Store() {
         setToast({ type: 'error', message: 'Error al obtener productos: ' + err.message });
         setProducts([]);
       });
-    fetch('/api/suppliers')
-      .then(res => res.json())
-      .then(setSuppliers)
+    fetch('/api/suppliers', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then(async res => {
+        if (res.status === 401 || res.status === 403) {
+          alert('Sesión expirada o permisos insuficientes. Por favor, inicia sesión nuevamente.');
+          localStorage.removeItem('token');
+          window.location.href = '/login';
+          return [];
+        }
+        const data = await res.json();
+        setSuppliers(Array.isArray(data) ? data : []);
+      })
       .catch(err => {
         setToast({ type: 'error', message: 'Error al obtener proveedores: ' + err.message });
         setSuppliers([]);
       });
-  const [selectedSupplier, setSelectedSupplier] = useState('');
   }, []);
 
   const addToCart = (product) => {
