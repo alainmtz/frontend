@@ -23,74 +23,13 @@ class ErrorBoundary extends React.Component {
   }
   render() {
     if (this.state.hasError) {
-  return <Box sx={{ p: 8, color: 'error.main' }}>Ha ocurrido un error inesperado en la página de Items.</Box>;
+      return <Box sx={{ p: 8, color: 'error.main' }}>Ha ocurrido un error inesperado en la página de Items.</Box>;
     }
     return this.props.children;
   }
 }
 
 function Items() {
-  const handleDragOver = e => {
-    e.preventDefault();
-  };
-  const handleFileChange = e => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      setNewImage(file);
-      const reader = new FileReader();
-      reader.onload = ev => setPreviewImg(ev.target.result);
-      reader.readAsDataURL(file);
-      setEditData(prev => ({ ...prev, image_url: file.name }));
-    }
-  };
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      let image_url = editData.image_url;
-      if (newImage) {
-        const formData = new FormData();
-        formData.append('file', newImage);
-        const res = await fetch('/api/items/upload', { method: 'POST', body: formData });
-        const data = await res.json();
-        image_url = data.image_url;
-      }
-      // Construir el objeto para Items
-      const itemPayload = {
-        name: editData.name,
-        sku: editData.sku,
-        description: editData.description,
-        price: editData.price,
-        cost: editData.cost,
-        brand: editData.brand,
-        model: editData.model,
-        status: editData.status,
-        supplier_id: editData.supplier_id || null,
-        provenance: editData.provenance,
-        warranty_days: editData.warranty_days,
-        image_url,
-      };
-      await updateItem(editData.id, itemPayload);
-      // Si quantity cambió, actualizar Stock
-      if (typeof editData.quantity !== 'undefined') {
-        await fetch(`/api/stock/${editData.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ quantity: Number(editData.quantity) })
-        });
-      }
-      setEditMode(false);
-      setSelected(null);
-      setEditData({});
-      setNewImage(null);
-      setPreviewImg(null);
-      fetchItems();
-      setToast('Artículo actualizado correctamente');
-    } catch (err) {
-      setToast('Error al actualizar el artículo');
-    }
-    setLoading(false);
-  };
   const handleEditChange = e => {
     const { name, value, type, files } = e.target;
     if (type === 'file' && files && files[0]) {
@@ -252,6 +191,17 @@ function Items() {
               />
             </Box>
           </Box>
+    }
+  };
+
+  const handleAddDragOver = e => {
+    e.preventDefault();
+  };
+
+  // Manejo correcto de archivo para agregar ítem
+  const handleAddFileChange = e => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
       setAddImage(file);
       const reader = new FileReader();
       reader.onload = ev => setPreviewImg(ev.target.result);
@@ -259,8 +209,16 @@ function Items() {
     }
   };
 
-  const handleAddDragOver = e => {
+  // Manejo de drag & drop para agregar imagen
+  const handleAddDrop = e => {
     e.preventDefault();
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file) {
+      setAddImage(file);
+      const reader = new FileReader();
+      reader.onload = ev => setPreviewImg(ev.target.result);
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleAddChange = e => {
@@ -286,8 +244,6 @@ function Items() {
       addFileInputRef.current.click();
     }
   };
-
-
   useEffect(() => {
     let result = [...items];
     if (search) {
@@ -321,6 +277,7 @@ function Items() {
     }
     setFiltered(result);
   }, [items, search, sku, minPrice, maxPrice, filteredStatus, filteredSupplier, mostSold]);
+
   return (
     <ErrorBoundary>
     <Box sx={{ p: { xs: 2, md: 6 }, mt: { xs: 2, md: 6 }, mx: 'auto'  }}>
@@ -531,11 +488,10 @@ function Items() {
             {toast}
           </Box>
         )}
+      
       </Box>
     </ErrorBoundary>
   );
-  };
+}
 
-  // Las funciones auxiliares deben estar dentro del scope de Items para acceder a los estados
-  
 export default Items;
