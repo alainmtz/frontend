@@ -1,0 +1,6 @@
+/* Estilos base para la app. Puedes agregar aquí Tailwind, resets, etc. */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f3f4f6;
+}

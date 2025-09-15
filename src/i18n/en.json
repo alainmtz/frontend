@@ -1,0 +1,111 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "button": "Sign In",
+    "register": "Don't have an account? Register",
+    "forgot": "Forgot your password?"
+  },
+  "register": {
+    "title": "Register",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "button": "Register",
+    "login": "Already have an account? Login"
+  },
+  "forgot": {
+    "title": "Forgot Password",
+    "email": "Email",
+    "button": "Send link",
+    "login": "Back to login",
+    "success": "Link sent to your email",
+    "error": "Could not send the link"
+  },
+  "profile": {
+    "title": "User Profile",
+    "changePhoto": "Change photo",
+    "name": "Name",
+    "defaultName": "User",
+    "email": "Email",
+    "phone": "Phone",
+    "save": "Save changes",
+    "button": "Update"
+  },
+  "roles": {
+    "title": "Role Management",
+    "add": "Add Role",
+    "name": "Name",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "admin": "Admin",
+    "user": "User",
+    "guest": "Guest"
+  },
+  "finances": {
+    "title": "Finance Control",
+    "add": "Add Transaction",
+    "concept": "Concept",
+    "amount": "Amount",
+    "date": "Date",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "sale": "Sale",
+    "purchase": "Purchase"
+  },
+  "reports": {
+    "title": "Reports",
+    "generate": "Generate Report",
+    "type": "Type",
+  "filterDateStart": "Start date",
+  "filterDateEnd": "End date",
+    "actions": "Actions",
+    "view": "View",
+    "delete": "Delete",
+    "financial": "Financial",
+    "inventory": "Inventory"
+  },
+  "transactions": {
+    "title": "Transactions",
+    "id": "ID",
+    "type": "Type",
+    "type.sale": "Sale",
+    "type.purchase": "Purchase",
+    "type.adjustment": "Adjustment",
+    "amount": "Amount",
+    "date": "Date",
+    "actions": "Actions",
+    "loading": "Loading...",
+    "empty": "No transactions",
+    "save": "Save",
+    "cancel": "Cancel",
+    "new": "New transaction",
+    "created": "Transaction created",
+    "updated": "Transaction updated",
+    "deleted": "Transaction deleted",
+    "error.create": "Error creating",
+    "error.update": "Error updating",
+    "error.delete": "Error deleting"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "finances": "Finances",
+    "inventory": "Inventory",
+    "users": "Users",
+    "notifications": "Notifications",
+    "items": "items",
+    "theme": "Change theme"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "roles": "Roles",
+    "finances": "Finances",
+  "transactions": "Transactions",
+  "reports": "Reports",
+    "appname": "Fulltime WebApp"
+  }
+}

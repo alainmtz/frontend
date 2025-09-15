@@ -1,0 +1,115 @@
+{
+  "login": {
+    "title": "Iniciar Sesión",
+    "email": "Email",
+    "password": "Contraseña",
+    "button": "Entrar",
+    "register": "¿No tienes cuenta? Regístrate",
+    "forgot": "¿Olvidaste tu contraseña?"
+  },
+  "register": {
+    "title": "Registro",
+  "filterDateStart": "Fecha inicio",
+  "filterDateEnd": "Fecha fin",
+  "detailTitle": "Detalle del Reporte",
+  "user": "Usuario",
+  "description": "Descripción",
+  "editable": "Este reporte puede ser editado por administradores.",
+    "email": "Email",
+    "password": "Contraseña",
+    "button": "Registrarse",
+    "login": "¿Ya tienes cuenta? Inicia sesión"
+  },
+  "forgot": {
+    "title": "Recuperar Contraseña",
+    "email": "Email",
+    "button": "Enviar enlace",
+    "login": "Volver al inicio de sesión",
+    "success": "Enlace enviado a tu correo",
+    "error": "No se pudo enviar el enlace"
+  },
+  "profile": {
+    "title": "Perfil de Usuario",
+    "changePhoto": "Cambiar foto",
+    "name": "Nombre",
+    "defaultName": "Usuario",
+    "email": "Email",
+    "phone": "Teléfono",
+    "save": "Guardar cambios",
+    "button": "Actualizar"
+  },
+  "roles": {
+    "title": "Gestión de Roles",
+    "add": "Agregar Rol",
+    "name": "Nombre",
+    "actions": "Acciones",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "guest": "Invitado"
+  },
+  "finances": {
+    "title": "Control de Finanzas",
+    "add": "Agregar Movimiento",
+    "concept": "Concepto",
+    "amount": "Monto",
+    "date": "Fecha",
+    "actions": "Acciones",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "sale": "Venta",
+    "purchase": "Compra"
+  },
+  "reports": {
+    "title": "Reportes",
+    "generate": "Generar Reporte",
+    "type": "Tipo",
+    "date": "Fecha",
+    "actions": "Acciones",
+    "view": "Ver",
+    "delete": "Eliminar",
+    "financial": "Financiero",
+    "inventory": "Inventario"
+  },
+  "transactions": {
+    "title": "Transacciones",
+    "id": "ID",
+    "type": "Tipo",
+    "type.sale": "Venta",
+    "type.purchase": "Compra",
+    "type.adjustment": "Ajuste",
+    "amount": "Monto",
+    "date": "Fecha",
+    "actions": "Acciones",
+    "loading": "Cargando...",
+    "empty": "Sin transacciones",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "new": "Nueva transacción",
+    "created": "Transacción creada",
+    "updated": "Transacción actualizada",
+    "deleted": "Transacción eliminada",
+    "error.create": "Error al crear",
+    "error.update": "Error al actualizar",
+    "error.delete": "Error al eliminar"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "finances": "Finanzas",
+    "inventory": "Inventario",
+    "users": "Usuarios",
+    "notifications": "Notificaciones",
+    "items": "items",
+    "theme": "Cambiar tema"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "profile": "Perfil",
+    "roles": "Roles",
+    "finances": "Finanzas",
+  "transactions": "Transacciones",
+  "reports": "Reportes",
+    "appname": "Fulltime WebApp"
+  }
+}

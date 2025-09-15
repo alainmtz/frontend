@@ -1,65 +1,73 @@
-import RolesManagement from './pages/RolesManagement';
-              <Route path="/roles-management" element={<ProtectedRoute><RolesManagement /></ProtectedRoute>} />
-import './index.css';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
-import { Box } from '@mui/material';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import { AuthContext } from './context/AuthContext';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import Dashboard from './pages/dashboard/Dashboard';
+import Profile from './pages/profile/Profile';
+import Roles from './pages/roles/Roles';
+import Finances from './pages/finances/Finances';
+import Reports from './pages/reports/Reports';
+import ItemsPage from './pages/items';
+import PrivateRoute from './components/PrivateRoute';
+import TransactionsPage from './pages/transactions/TransactionsPage';
+import { AuthProvider } from './context/AuthContext';
+import NavBar from './components/NavBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProviderCustom, ThemeContext } from './context/ThemeContext';
 
-import Dashboard from './pages/Dashboard';
-import Items from './pages/Items';
-import Suppliers from './pages/Suppliers';
-import Transactions from './pages/Transactions';
-import ActivityLog from './pages/ActivityLog';
-import StockHistory from './pages/StockHistory';
-import Products from './pages/Products';
-import Projects from './pages/Projects';
-import NotFound from './pages/NotFound';
-import Consumibles from './pages/Consumibles';
-import Store from './pages/Store';
-import Purchases from './pages/Purchases';
-
-import FinancialReports from './pages/FinancialReports';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ProtectedRoute from './components/ProtectedRoute';
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from 'react-router-dom';
-
-function App() {
-  return (
-    <Router>
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'grey.100' }}>
-        <Navbar />
-        <Box sx={{ display: 'flex', flex: 1 }}>
-          <Sidebar />
-          <Box component="main" sx={{ flex: 1, bgcolor: 'grey.100', minHeight: '100vh', pt: 8, pl: { md: 32 } }}>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                <Route path="/items" element={<ProtectedRoute><Items /></ProtectedRoute>} />
-                <Route path="/suppliers" element={<ProtectedRoute><Suppliers /></ProtectedRoute>} />
-                <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
-                <Route path="/activity-log" element={<ProtectedRoute><ActivityLog /></ProtectedRoute>} />
-                <Route path="/stock-history" element={<ProtectedRoute><StockHistory /></ProtectedRoute>} />
-                <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
-                <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
-                <Route path="/consumibles" element={<ProtectedRoute><Consumibles /></ProtectedRoute>} />
-                <Route path="/store" element={<ProtectedRoute><Store /></ProtectedRoute>} />
-                <Route path="/purchases" element={<ProtectedRoute><Purchases /></ProtectedRoute>} />
-                <Route path="/financial-reports" element={<ProtectedRoute><FinancialReports /></ProtectedRoute>} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Box>
-        </Box>
-      </Box>
-    </Router>
-  );
+// Componente para proteger rutas solo para admin (fuera de App)
+function AdminOnly({ children }) {
+  const { user } = useContext(AuthContext);
+  if (!user || !user.token) return null;
+  try {
+    const payload = JSON.parse(atob(user.token.split('.')[1]));
+    if (payload.roles && (payload.roles.includes('admin') || payload.roles.includes('Admin'))) {
+      return children;
+    }
+  } catch (e) {}
+  return <div style={{ padding: 32, textAlign: 'center' }}>No autorizado</div>;
 }
 
-export default App;
+const App = () => {
+  return (
+    <ThemeProviderCustom>
+      {(theme) => (
+        <ThemeContext.Consumer>
+          {({ mode, toggleMode }) => (
+            <>
+              <CssBaseline />
+              <AuthProvider>
+                <Router>
+                  <NavBar toggleMode={toggleMode} mode={mode} />
+                  <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={
+                      <PrivateRoute>
+                        <AdminOnly>
+                          <Register />
+                        </AdminOnly>
+                      </PrivateRoute>
+                    } />
+                    <Route path="/forgot" element={<ForgotPassword />} />
+                    <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                    <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+                    <Route path="/roles" element={<PrivateRoute><Roles /></PrivateRoute>} />
+                    <Route path="/finances" element={<PrivateRoute><Finances /></PrivateRoute>} />
+                    <Route path="/transactions" element={<PrivateRoute><TransactionsPage /></PrivateRoute>} />
+                    <Route path="/items" element={<PrivateRoute><ItemsPage /></PrivateRoute>} />
+                    <Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />
+                  </Routes>
+                </Router>
+              </AuthProvider>
+            </>
+          )}
+        </ThemeContext.Consumer>
+      )}
+    </ThemeProviderCustom>
+  );
+};
 
+export default App;
